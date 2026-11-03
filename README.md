@@ -181,13 +181,13 @@ mvn spring-boot:run
 
 # 方式二：打包后运行
 mvn -DskipTests package
-java -jar target/library-system-1.0.0.jar
+java -jar target/library-system-0.1.0.jar
 ```
 
 Windows 下如果控制台中文乱码，可显式指定编码（**引号不能省**，否则 Java 会把参数当成类名）：
 
 ```powershell
-java '-Dfile.encoding=UTF-8' -jar target\library-system-1.0.0.jar
+java '-Dfile.encoding=UTF-8' -jar target\library-system-0.1.0.jar
 ```
 
 也可以直接使用项目根目录的启动脚本：
@@ -958,7 +958,7 @@ netstat -ano | findstr :8080
 Windows 下使用：
 
 ```powershell
-java '-Dfile.encoding=UTF-8' -jar target\library-system-1.0.0.jar
+java '-Dfile.encoding=UTF-8' -jar target\library-system-0.1.0.jar
 ```
 
 引号必须保留，否则 Java 会把 `-Dfile.encoding=UTF-8` 当成类名。

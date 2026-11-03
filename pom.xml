@@ -13,7 +13,7 @@
 
     <groupId>com.library</groupId>
     <artifactId>library-system</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0</version>
     <name>library-system</name>
     <description>在线图书借阅管理系统</description>
 
