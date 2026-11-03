@@ -1,0 +1,77 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: library-system
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/library_db?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true&rewriteBatchedStatements=true
+    # 本地演示默认值；正式部署请用环境变量覆盖，不要把真实口令写进仓库
+    #   Windows:  $env:DB_USERNAME="root"; $env:DB_PASSWORD="你的口令"
+    #   Linux  :  export DB_USERNAME=root DB_PASSWORD='你的口令'
+    username: ${DB_USERNAME:root}
+    password: ${DB_PASSWORD:123456}
+    hikari:
+      minimum-idle: 4
+      maximum-pool-size: 12
+      connection-timeout: 10000
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 1
+      timeout: 3000ms
+      lettuce:
+        pool:
+          max-active: 16
+          max-idle: 8
+          min-idle: 2
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+      schema-locations: classpath:db/schema.sql
+      data-locations: classpath:db/data.sql
+      continue-on-error: false
+  jackson:
+    time-zone: Asia/Shanghai
+    date-format: yyyy-MM-dd HH:mm:ss
+    default-property-inclusion: always
+  web:
+    resources:
+      cache:
+        period: 0
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    banner: false
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+library:
+  jwt:
+    # 至少 32 字节；正式部署请通过环境变量 LIBRARY_JWT_SECRET 注入
+    secret: ${LIBRARY_JWT_SECRET:library-system-demo-secret-key-change-me-in-production}
+    expire-hours: 24
+  borrow:
+    loan-days: 30
+    renew-days: 30
+    max-renew: 2
+    max-borrowing: 5
+
+logging:
+  level:
+    root: info
+    com.library: info
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"

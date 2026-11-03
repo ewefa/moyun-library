@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.BookMapper">
+
+    <sql id="bookColumns">
+        b.id, b.isbn, b.title, b.author, b.publisher, b.category_id, c.name AS category_name,
+        b.total_copies, b.available_copies, b.location, b.status, b.description,
+        b.borrow_count, b.create_time
+    </sql>
+
+    <select id="selectBookPage" resultType="com.library.vo.BookVO">
+        SELECT
+        <include refid="bookColumns"/>
+        FROM t_book b
+        LEFT JOIN t_category c ON c.id = b.category_id
+        <where>
+            b.deleted = 0
+            <if test="status != null">
+                AND b.status = #{status}
+            </if>
+            <if test="categoryId != null">
+                AND b.category_id = #{categoryId}
+            </if>
+            <if test="keyword != null and keyword != ''">
+                AND (b.title LIKE CONCAT('%', #{keyword}, '%')
+                OR b.author LIKE CONCAT('%', #{keyword}, '%')
+                OR b.isbn LIKE CONCAT('%', #{keyword}, '%')
+                OR b.publisher LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        <choose>
+            <when test="sort == 'hot'">ORDER BY b.borrow_count DESC, b.id DESC</when>
+            <when test="sort == 'new'">ORDER BY b.create_time DESC, b.id DESC</when>
+            <when test="sort == 'title'">ORDER BY b.title ASC, b.id ASC</when>
+            <otherwise>ORDER BY b.id DESC</otherwise>
+        </choose>
+    </select>
+
+    <select id="selectBookVO" resultType="com.library.vo.BookVO">
+        SELECT
+        <include refid="bookColumns"/>
+        FROM t_book b
+        LEFT JOIN t_category c ON c.id = b.category_id
+        WHERE b.id = #{id} AND b.deleted = 0
+    </select>
+
+</mapper>

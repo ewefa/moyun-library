@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 · 墨韵图书馆</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="auth-page">
+    <aside class="auth-visual">
+      <a class="brand" href="index.html">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15Z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 6h8"/></svg>
+        <span>墨韵图书馆<small>MOYUN LIBRARY</small></span>
+      </a>
+
+      <div>
+        <div class="auth-quote">读书不觉已春深，<br>一寸光阴<span class="hl">一寸金</span>。</div>
+        <div class="auth-feats">
+          <div class="auth-feat"><span class="dot">01</span><div>馆藏检索与实时库存，想读的书一目了然。</div></div>
+          <div class="auth-feat"><span class="dot">02</span><div>在线借阅、续借与归还，借阅记录随时可查。</div></div>
+          <div class="auth-feat"><span class="dot">03</span><div>热门排行与借阅趋势，把好书推荐给更多人。</div></div>
+        </div>
+      </div>
+
+      <div class="auth-foot">SPRING BOOT · MYBATIS-PLUS · MYSQL · REDIS</div>
+    </aside>
+
+    <main class="auth-panel">
+      <div class="auth-card">
+        <h2 id="authTitle">欢迎回来</h2>
+        <p class="sub" id="authSub">登录后即可借阅图书、查看借阅记录</p>
+
+        <div class="auth-switch">
+          <button type="button" id="tabLogin" class="active">登录</button>
+          <button type="button" id="tabRegister">注册读者账号</button>
+        </div>
+
+        <form class="auth-form" id="loginForm" autocomplete="on">
+          <div class="field">
+            <label for="loginUsername">用户名</label>
+            <input class="input" id="loginUsername" name="username" placeholder="请输入用户名" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="loginPassword">密码</label>
+            <input class="input" id="loginPassword" name="password" type="password" placeholder="请输入密码" autocomplete="current-password" required>
+          </div>
+          <div class="form-error" id="loginError"></div>
+          <button class="btn btn-block" type="submit" id="loginBtn">登录</button>
+        </form>
+
+        <form class="auth-form" id="registerForm" style="display:none" autocomplete="off">
+          <div class="field">
+            <label for="regUsername">用户名 <span class="req">*</span></label>
+            <input class="input" id="regUsername" placeholder="4-20 位字母、数字或下划线" autocomplete="username" required>
+          </div>
+          <div class="field">
+            <label for="regNickname">昵称 <span class="req">*</span></label>
+            <input class="input" id="regNickname" placeholder="你希望被怎样称呼" maxlength="20" required>
+          </div>
+          <div class="field">
+            <label for="regPhone">手机号</label>
+            <input class="input" id="regPhone" placeholder="选填，11 位手机号" maxlength="11" inputmode="numeric">
+          </div>
+          <div class="field">
+            <label for="regPassword">密码 <span class="req">*</span></label>
+            <input class="input" id="regPassword" type="password" placeholder="6-20 位密码" autocomplete="new-password" required>
+          </div>
+          <div class="field">
+            <label for="regConfirm">确认密码 <span class="req">*</span></label>
+            <input class="input" id="regConfirm" type="password" placeholder="请再次输入密码" autocomplete="new-password" required>
+          </div>
+          <div class="form-error" id="registerError"></div>
+          <button class="btn btn-block" type="submit" id="registerBtn">注册并登录</button>
+        </form>
+
+        <div class="demo-accounts" id="demoAccounts">
+          <span class="muted" style="font-size:12px;align-self:center">演示账号：</span>
+          <span class="tag" data-user="admin" data-pass="admin123">管理员 admin / admin123</span>
+          <span class="tag" data-user="reader" data-pass="reader123">读者 reader / reader123</span>
+        </div>
+
+        <div class="auth-hint">登录即表示同意图书馆借阅规则 · <a href="index.html" style="color:var(--green)">返回首页</a></div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>

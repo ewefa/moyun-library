@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>墨韵图书馆 · 在线借阅</title>
+  <meta name="description" content="墨韵图书馆在线借阅系统：馆藏查询、在线借阅、续借归还、借阅排行。">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header id="navbar"></header>
+
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="eyebrow">MOYUN LIBRARY · 在线借阅</div>
+          <h1>让每一本书，<br>遇见<em>它的读者</em></h1>
+          <p class="hero-desc">
+            从经典文学到前沿技术，墨韵图书馆收藏着值得反复翻阅的好书。
+            在线查询馆藏、一键借阅、到期续借，让阅读这件事更简单。
+          </p>
+          <div class="hero-actions">
+            <a href="books.html" class="btn">浏览馆藏 <span style="width:16px;height:16px;display:inline-flex" id="heroArrow"></span></a>
+            <a href="my.html" class="btn btn-ghost">我的借阅</a>
+          </div>
+          <div class="hero-meta">
+            <div><b id="heroBooks">—</b>在架图书</div>
+            <div><b id="heroCopies">—</b>馆藏册数</div>
+            <div><b id="heroBorrowing">—</b>当前在借</div>
+            <div><b id="heroReaders">—</b>注册读者</div>
+          </div>
+        </div>
+
+        <div class="hero-book">
+          <div class="hero-stamp">墨韵<br>藏書</div>
+          <div class="quote-card">
+            <div class="quote-label">TODAY'S READING</div>
+            <div class="quote-text">旧书不厌百回读，<br>熟读深思子自知。</div>
+            <div class="quote-from">—— 苏轼《送安惇秀才失解西归》</div>
+            <div class="quote-book">
+              <div class="mini-cover">书</div>
+              <div>
+                <b>今日馆藏推荐</b>
+                <span id="quoteRecommend">正在为你挑选…</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm">
+      <div class="wrap">
+        <div class="stats-grid" id="homeStats">
+          <div class="stat-card"><div class="stat-label">馆藏图书</div><div class="stat-value skeleton" style="height:44px;width:80px"></div></div>
+          <div class="stat-card bronze"><div class="stat-label">馆藏册数</div><div class="stat-value skeleton" style="height:44px;width:80px"></div></div>
+          <div class="stat-card blue"><div class="stat-label">当前在借</div><div class="stat-value skeleton" style="height:44px;width:80px"></div></div>
+          <div class="stat-card red"><div class="stat-label">注册读者</div><div class="stat-value skeleton" style="height:44px;width:80px"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">MOST BORROWED</div>
+            <h2 class="section-title">热门借阅排行</h2>
+            <p class="section-sub">由真实借阅数据实时统计，每 5 分钟更新一次</p>
+          </div>
+          <a href="books.html" class="link-more">查看全部馆藏 <span style="width:15px;height:15px;display:inline-flex" id="moreArrow"></span></a>
+        </div>
+
+        <div class="rank-layout">
+          <div class="card" id="rankCard">
+            <div class="rank-list" id="rankList">
+              <div style="padding:22px"><div class="skeleton" style="height:16px;width:60%;margin-bottom:14px"></div><div class="skeleton" style="height:16px;width:80%"></div></div>
+            </div>
+          </div>
+
+          <div class="card card-pad" style="background:linear-gradient(160deg,#fffdf8,#f2ebdc)">
+            <div class="eyebrow">BORROWING RULES</div>
+            <h3 style="font-size:20px;color:var(--green-deep)">借阅须知</h3>
+            <div style="display:flex;flex-direction:column;gap:14px;margin-top:18px">
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div class="avatar" style="background:var(--green-soft);color:var(--green)">30</div>
+                <div><b style="font-size:13.5px">借期 30 天</b><div class="muted" style="font-size:12px">自借出之日起计算，到期前可续借。</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div class="avatar" style="background:var(--bronze-soft);color:var(--bronze)">2</div>
+                <div><b style="font-size:13.5px">最多续借 2 次</b><div class="muted" style="font-size:12px">每次续借延长 30 天，逾期后不可续借。</div></div>
+              </div>
+              <div style="display:flex;gap:12px;align-items:flex-start">
+                <div class="avatar" style="background:var(--blue-soft);color:var(--blue)">5</div>
+                <div><b style="font-size:13.5px">同时可借 5 册</b><div class="muted" style="font-size:12px">有逾期未还图书时，需先归还才能继续借阅。</div></div>
+              </div>
+            </div>
+            <hr class="divider-line" style="margin:20px 0">
+            <a href="books.html" class="btn btn-block">去挑一本书</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" style="padding-top:10px">
+      <div class="wrap">
+        <div class="section-head">
+          <div>
+            <div class="eyebrow">NEW ARRIVALS</div>
+            <h2 class="section-title">新书上架</h2>
+            <p class="section-sub">最近入库的好书，先到先得</p>
+          </div>
+        </div>
+        <div class="book-grid" id="newBooks">
+          <div class="card" style="height:210px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:210px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:210px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:210px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm" style="background:var(--paper-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
+      <div class="wrap">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:26px" id="features">
+          <div>
+            <div class="eyebrow">01 · SEARCH</div>
+            <h3 style="font-size:18px;color:var(--green-deep)">馆藏轻松查</h3>
+            <p class="muted" style="font-size:12.5px;margin-top:6px">按书名、作者、ISBN 检索，支持分类筛选与热度排序，库存实时可见。</p>
+          </div>
+          <div>
+            <div class="eyebrow">02 · BORROW</div>
+            <h3 style="font-size:18px;color:var(--green-deep)">借还全在线</h3>
+            <p class="muted" style="font-size:12.5px;margin-top:6px">一键借阅、到期续借、归还登记，借阅记录随时可查，逾期状态清晰提示。</p>
+          </div>
+          <div>
+            <div class="eyebrow">03 · INSIGHT</div>
+            <h3 style="font-size:18px;color:var(--green-deep)">数据有温度</h3>
+            <p class="muted" style="font-size:12.5px;margin-top:6px">热门排行、借阅趋势、分类分布，帮助管理员把好书推荐给更多人。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div style="display:flex;align-items:center;gap:10px">
+          <div class="brand" style="font-size:15px">墨韵图书馆</div>
+          <span>·</span>
+          <span>在线图书借阅管理系统</span>
+        </div>
+        <div>Spring Boot · MyBatis-Plus · MySQL · Redis</div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/home.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.library.mapper.BorrowRecordMapper">
+
+    <select id="selectBorrowPage" resultType="com.library.vo.BorrowVO">
+        SELECT r.id, r.user_id, u.username, u.nickname, r.book_id,
+               b.title AS book_title, b.author AS book_author, b.isbn,
+               r.borrow_time, r.due_time, r.return_time, r.renew_count, r.status
+        FROM t_borrow_record r
+        JOIN t_user u ON u.id = r.user_id
+        JOIN t_book b ON b.id = r.book_id
+        <where>
+            <if test="userId != null">
+                AND r.user_id = #{userId}
+            </if>
+            <!-- status=0 仅未逾期在借；status=2 包含尚未被定时任务标记但已过期的记录 -->
+            <choose>
+                <when test="status != null and status == 0">
+                    AND r.status = 0 AND r.due_time &gt;= NOW()
+                </when>
+                <when test="status != null and status == 2">
+                    AND r.status IN (0, 2) AND r.due_time &lt; NOW()
+                </when>
+                <when test="status != null">
+                    AND r.status = #{status}
+                </when>
+            </choose>
+            <if test="keyword != null and keyword != ''">
+                AND (b.title LIKE CONCAT('%', #{keyword}, '%')
+                OR b.isbn LIKE CONCAT('%', #{keyword}, '%')
+                OR u.username LIKE CONCAT('%', #{keyword}, '%')
+                OR u.nickname LIKE CONCAT('%', #{keyword}, '%'))
+            </if>
+        </where>
+        ORDER BY r.id DESC
+    </select>
+
+    <select id="selectBorrowById" resultType="com.library.vo.BorrowVO">
+        SELECT r.id, r.user_id, u.username, u.nickname, r.book_id,
+               b.title AS book_title, b.author AS book_author, b.isbn,
+               r.borrow_time, r.due_time, r.return_time, r.renew_count, r.status
+        FROM t_borrow_record r
+        JOIN t_user u ON u.id = r.user_id
+        JOIN t_book b ON b.id = r.book_id
+        WHERE r.id = #{id}
+    </select>
+
+</mapper>

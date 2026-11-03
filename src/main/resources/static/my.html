@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我的借阅 · 墨韵图书馆</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header id="navbar"></header>
+
+    <section style="padding:40px 0 10px">
+      <div class="wrap">
+        <div class="eyebrow">MY LIBRARY</div>
+        <h1 class="section-title" style="font-size:34px">我的借阅</h1>
+        <p class="section-sub">管理你的借阅记录，按时归还，让好书继续流转</p>
+      </div>
+    </section>
+
+    <section class="section-sm" style="padding-top:20px">
+      <div class="wrap" style="display:grid;grid-template-columns:280px 1fr;gap:24px;align-items:start">
+        <aside class="card profile-card">
+          <div class="profile-avatar" id="profileAvatar">读</div>
+          <div class="profile-name" id="profileName">—</div>
+          <div class="profile-sub" id="profileSub">—</div>
+          <div style="margin-top:8px"><span class="badge bronze plain" id="profileRole">读者</span></div>
+          <div class="profile-meta">
+            <div><span>用户名</span><b id="profileUsername">—</b></div>
+            <div><span>手机号</span><b id="profilePhone">—</b></div>
+            <div><span>注册时间</span><b id="profileCreated">—</b></div>
+          </div>
+          <div class="profile-actions">
+            <button class="btn btn-ghost btn-sm" type="button" id="editProfileBtn">编辑个人资料</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="changePasswordBtn">修改密码</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="logoutBtn">退出登录</button>
+          </div>
+        </aside>
+
+        <div>
+          <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:20px">
+            <div class="stat-card">
+              <div class="stat-label">当前在借</div>
+              <div class="stat-value"><span id="sumBorrowing">—</span><small id="sumLimit">/ 5 册</small></div>
+              <div class="stat-foot">含逾期未还</div>
+            </div>
+            <div class="stat-card red">
+              <div class="stat-label">逾期未还</div>
+              <div class="stat-value"><span id="sumOverdue">—</span><small>册</small></div>
+              <div class="stat-foot" id="overdueFoot">保持良好借阅记录</div>
+            </div>
+            <div class="stat-card bronze">
+              <div class="stat-label">历史借阅</div>
+              <div class="stat-value"><span id="sumHistory">—</span><small>册</small></div>
+              <div class="stat-foot" id="ruleFoot">借期 30 天 · 可续借 2 次</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div style="padding:6px 20px 0">
+              <div class="tabs" id="tabs">
+                <button class="tab active" type="button" data-status="">全部 <span class="count" id="countAll"></span></button>
+                <button class="tab" type="button" data-status="0">借阅中 <span class="count" id="countActive"></span></button>
+                <button class="tab" type="button" data-status="2">已逾期 <span class="count" id="countOverdue"></span></button>
+                <button class="tab" type="button" data-status="1">已归还 <span class="count" id="countReturned"></span></button>
+              </div>
+            </div>
+            <div id="borrowList">
+              <div style="padding:22px"><div class="skeleton" style="height:16px;width:50%;margin-bottom:14px"></div><div class="skeleton" style="height:16px;width:70%"></div></div>
+            </div>
+            <div class="pagination" id="pagination" style="padding-bottom:20px"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div>墨韵图书馆 · 我的阅读清单</div>
+        <div>借阅规则：借期 30 天，可续借 2 次，最多同时借阅 5 册</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 编辑资料 -->
+  <div class="modal-mask" id="profileModal">
+    <div class="modal">
+      <div class="modal-head"><h3>编辑个人资料</h3><button class="modal-close" type="button" data-close>✕</button></div>
+      <form id="profileForm">
+        <div class="modal-body">
+          <div class="field" style="margin-bottom:14px">
+            <label for="editNickname">昵称 <span class="req">*</span></label>
+            <input class="input" id="editNickname" maxlength="20" required>
+          </div>
+          <div class="field">
+            <label for="editPhone">手机号</label>
+            <input class="input" id="editPhone" maxlength="11" inputmode="numeric" placeholder="选填，11 位手机号">
+          </div>
+          <div class="form-error" id="profileError"></div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-ghost" type="button" data-close>取消</button>
+          <button class="btn" type="submit" id="saveProfileBtn">保存</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- 修改密码 -->
+  <div class="modal-mask" id="passwordModal">
+    <div class="modal">
+      <div class="modal-head"><h3>修改密码</h3><button class="modal-close" type="button" data-close>✕</button></div>
+      <form id="passwordForm">
+        <div class="modal-body">
+          <div class="field" style="margin-bottom:14px">
+            <label for="oldPassword">原密码</label>
+            <input class="input" id="oldPassword" type="password" autocomplete="current-password" required>
+          </div>
+          <div class="field" style="margin-bottom:14px">
+            <label for="newPassword">新密码</label>
+            <input class="input" id="newPassword" type="password" placeholder="6-20 位" autocomplete="new-password" required>
+          </div>
+          <div class="field">
+            <label for="confirmPassword">确认新密码</label>
+            <input class="input" id="confirmPassword" type="password" autocomplete="new-password" required>
+          </div>
+          <div class="form-error" id="passwordError"></div>
+          <p class="form-hint" style="margin-top:8px">修改密码后当前登录会失效，需要使用新密码重新登录。</p>
+        </div>
+        <div class="modal-foot">
+          <button class="btn btn-ghost" type="button" data-close>取消</button>
+          <button class="btn" type="submit" id="savePasswordBtn">确认修改</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/my.js"></script>
+</body>
+</html>

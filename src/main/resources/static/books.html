@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>馆藏图书 · 墨韵图书馆</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="page">
+    <header id="navbar"></header>
+
+    <section style="padding:40px 0 8px">
+      <div class="wrap">
+        <div class="eyebrow">COLLECTION</div>
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap">
+          <div>
+            <h1 class="section-title" style="font-size:34px">馆藏图书</h1>
+            <p class="section-sub">共 <b id="resultCount" style="color:var(--green)">—</b> 种图书，找到你想读的那一本</p>
+          </div>
+          <div class="badge green plain" id="loginTip" style="display:none">登录后可在线借阅</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-sm" style="padding-top:22px">
+      <div class="wrap">
+        <div class="toolbar">
+          <div class="searchbar">
+            <span id="searchIcon"></span>
+            <input class="input" id="keyword" placeholder="搜索书名、作者或 ISBN…" autocomplete="off">
+          </div>
+          <select class="select" id="categoryId">
+            <option value="">全部分类</option>
+          </select>
+          <select class="select" id="sort">
+            <option value="new">最新上架</option>
+            <option value="hot">借阅热度</option>
+            <option value="title">书名排序</option>
+          </select>
+          <button class="btn btn-ghost btn-sm" id="resetBtn" type="button" style="height:42px">重置</button>
+        </div>
+
+        <div class="book-grid" id="bookGrid">
+          <div class="card" style="height:220px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:220px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:220px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+          <div class="card" style="height:220px"><div class="skeleton" style="height:100%;border-radius:14px"></div></div>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="wrap footer-inner">
+        <div>墨韵图书馆 · 愿每一次翻阅都有回响</div>
+        <div>Spring Boot · MyBatis-Plus · MySQL · Redis</div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- 图书详情 -->
+  <div class="modal-mask" id="detailModal">
+    <div class="modal wide">
+      <div class="modal-head">
+        <h3>图书详情</h3>
+        <button class="modal-close" type="button" data-close="detailModal">✕</button>
+      </div>
+      <div class="modal-body" id="detailBody"></div>
+      <div class="modal-foot">
+        <button class="btn btn-ghost" type="button" data-close="detailModal">关闭</button>
+        <button class="btn" type="button" id="detailBorrowBtn">借阅这本书</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/common.js"></script>
+  <script src="js/books.js"></script>
+</body>
+</html>
